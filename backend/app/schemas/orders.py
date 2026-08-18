@@ -2,7 +2,6 @@ from pydantic import BaseModel
 
 
 class OrderCreate(BaseModel):
-    order_number: str
     customer_name: str
     expected_amount: float
 

@@ -1,6 +1,8 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 
+from fastapi.middleware.cors import CORSMiddleware
+
 from app.database.dependencies import get_db
 
 from app.database.connection import engine
@@ -13,6 +15,19 @@ from app.routers.orders import router as orders_router
 
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 Base.metadata.create_all(bind=engine)
 

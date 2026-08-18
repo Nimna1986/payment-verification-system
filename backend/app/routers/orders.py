@@ -17,8 +17,21 @@ def create_order(
     order: OrderCreate,
     db: Session = Depends(get_db)
 ):
+    last_order = (
+        db.query(Orders)
+        .order_by(Orders.id.desc())
+        .first()
+    )
+
+    if last_order:
+        next_number = last_order.id + 1
+    else:
+        next_number = 1
+
+    order_number = f"ORD-{next_number:04d}"
+
     new_order = Orders(
-        order_number=order.order_number,
+        order_number=order_number,
         customer_name=order.customer_name,
         expected_amount=order.expected_amount,
         status="PENDING"
