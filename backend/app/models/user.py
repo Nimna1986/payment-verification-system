@@ -11,4 +11,4 @@ class User(Base):
     name: Mapped[str] = mapped_column(String(100))
     email: Mapped[str] = mapped_column(String(255), unique=True, index=True)
     password_hash: Mapped[str] = mapped_column(String(255))
-    payments = relationship("Payment", back_populates="user")
+    payments = relationship("Payments", back_populates="user")

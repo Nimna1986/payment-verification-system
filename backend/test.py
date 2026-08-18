@@ -1,13 +1,18 @@
-from app.database.connection import SessionLocal
+from app.services.ocr_service import extract_text
+from app.services.payment_parser import parse_payment_text
 
 
-try:
-    db = SessionLocal()
-    print("Database session created successfully!")
+image_path = "uploads/payment_3.jpeg"
 
-    db.close()
-    print("Database session closed successfully!")
+text = extract_text(image_path)
 
-except Exception as e:
-    print("Database session failed!")
-    print(e)
+print("===== OCR RESULT =====")
+print(text)
+print("======================")
+
+payment_data = parse_payment_text(text)
+
+print()
+print("===== PARSED PAYMENT =====")
+print(payment_data)
+print("==========================")
